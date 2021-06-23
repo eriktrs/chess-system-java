@@ -16,7 +16,7 @@ public class Position {
 		this.column = column;
 	}
 	
-	//Gets and Setters
+	//Getters and Setters
 
 	public int getRow() {
 		return row;
