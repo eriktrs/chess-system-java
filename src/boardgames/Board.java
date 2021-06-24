@@ -2,12 +2,12 @@ package boardgames;
 
 public class Board {
 	
-	//Defining rows, columns and pieces
+	// Defining rows, columns and pieces
 	private int rows;
 	private int columns;
 	private Piece[][] pieces;
 	
-	//Constructor
+	// Constructor
 	public Board(int rows, int columns) {
 		if (rows<1 || columns <1) {
 			throw new BoardException("Error creating board: There must be at least 1 row and 1 column!");
@@ -17,7 +17,7 @@ public class Board {
 		pieces = new Piece[rows][columns];
 	}
 
-	//Getters only
+	// Getters only
 	
 	public int getRows() {
 		return rows;
@@ -27,7 +27,7 @@ public class Board {
 		return columns;
 	}
 	
-	//Return piece position
+	// Return piece position
 	public Piece piece(int row, int column) {
 		if (!positionExists(row,column)) {
 			throw new BoardException("Position not on the board!");
@@ -42,7 +42,7 @@ public class Board {
 		return pieces[position.getRow()][position.getColumn()];
 	}
 	
-	//Place pieces on Board
+	// Place pieces on Board
 	public void placePiece(Piece piece, Position position) {
 		if (thereIsAPiece(position)) {
 			throw new BoardException("There is already have a piece on position: " + position);
@@ -60,11 +60,29 @@ public class Board {
 		return positionExists(position.getRow(), position.getColumn());
 	}
 	
-	//Check if there is a piece
+	// Check if there is a piece
 	public boolean thereIsAPiece(Position position) {
 		if (!positionExists(position)) {
 			throw new BoardException("Position not on the board!");
 		}
 		return piece(position) != null;
 	}
+	
+	// Removing piece
+	public Piece removePiece(Position position) {
+		if (!positionExists(position)) {
+			throw new BoardException("Position not on the board!");
+		}
+		if (piece(position) == null) {
+			return null;
+		}
+		
+		//Auxiliary piece
+		Piece aux = piece(position);
+		aux.position = null;
+		pieces[position.getRow()][position.getColumn()] = null;
+		return aux;
+	}
+	
+	
 }
